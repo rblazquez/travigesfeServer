@@ -19,6 +19,6 @@ public class KinesisServiceTests {
 	public void handleAmenitieSave() {
 		DwhEvent dwh = new DwhEvent();
 		dwh.setTestfield("1234");
-		kinesisService.sendMessage(dwh.toString());
+		//kinesisService.sendMessage(dwh.toString());
 	}
 }

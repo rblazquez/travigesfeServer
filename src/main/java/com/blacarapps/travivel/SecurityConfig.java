@@ -18,6 +18,8 @@ public class SecurityConfig extends Auth0SecurityConfig {
 	@Override
 	protected void authorizeRequests(final HttpSecurity http) throws Exception {
 		http.authorizeRequests()
+			.antMatchers("/health").permitAll()
+			.antMatchers("/info").permitAll()
 			.antMatchers("/**").authenticated();
 	}
 }
