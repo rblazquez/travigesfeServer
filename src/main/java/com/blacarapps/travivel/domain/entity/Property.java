@@ -2,7 +2,6 @@ package com.blacarapps.travivel.domain.entity;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
-import java.math.BigInteger;
 import java.util.List;
 
 import javax.persistence.Column;
@@ -30,33 +29,50 @@ import com.blacarapps.travivel.domain.PROPERTY_TYPE;
 public class Property implements Serializable{
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
+    protected Long id;
     
 	@Column(unique=true)
-	private String name;
+	protected String name;
 	
 	@Enumerated(EnumType.STRING)
-	private PROPERTY_TYPE type;
+	protected PROPERTY_TYPE type;
 	
-	private String description;
+	protected String description;
 	
-	@Min(0)	private Integer maxGuest;
-	@Min(0)	private Integer bedRooms;
-	@Min(0) private Integer bathRooms;
-	@Min(0) private Integer amountOfBed;
-	@Min(0) private Integer minimumStay;
-	@Min(0) private Integer maximumStay;
-	private BigDecimal pricePerNight;
-	private BigDecimal cleaningFee;
-	private BigDecimal deposit;
-	private String streetAddress;
-	private String postalCode;
-	private String city;
-	private String stateProvince;
-	private String lat;
-	private String lng;
-	private Boolean active;
-	private String notes;
+	@Min(0)	protected Integer maxGuest;
+	@Min(0)	protected Integer bedRooms;
+	@Min(0) protected Integer bathRooms;
+	@Min(0) protected Integer amountOfBed;
+	@Min(0) protected Integer minimumStay;
+	@Min(0) protected Integer maximumStay;
+	protected BigDecimal pricePerNight;
+	protected BigDecimal cleaningFee;
+	protected BigDecimal deposit;
+	protected String streetAddress;
+	protected String postalCode;
+	protected String city;
+	protected String stateProvince;
+	protected String lat;
+	protected String lng;
+	protected Boolean active;
+	protected String notes;
+
+	@OneToMany(mappedBy="property",targetEntity=Attachment.class,
+		       fetch=FetchType.EAGER)
+	protected List<Attachment> attchments;
+	
+	@OneToMany(mappedBy="property",targetEntity=Booking.class,
+		       fetch=FetchType.EAGER)
+	protected List<Booking> bookings;
+	
+	@ManyToMany(fetch=FetchType.EAGER)
+    @JoinTable(name="PROPERTY_AMENITIES",
+            joinColumns=
+            @JoinColumn(name="PROPERTY_ID", referencedColumnName="ID"),
+      inverseJoinColumns=
+            @JoinColumn(name="AMENITIE_ID", referencedColumnName="ID")
+    )
+	protected List<Amenitie> amenities; 
 	
 	public Property(String name, PROPERTY_TYPE type, String description,
 			Integer maxGuest, Integer bedRooms, Integer bathRooms,
@@ -86,22 +102,5 @@ public class Property implements Serializable{
 		this.lng = lng;
 		this.active = active;
 		this.notes = notes;
-	}
-
-	@OneToMany(mappedBy="property",targetEntity=Attachment.class,
-		       fetch=FetchType.EAGER)
-	private List<Attachment> attchments;
-	
-	@OneToMany(mappedBy="property",targetEntity=Booking.class,
-		       fetch=FetchType.EAGER)
-	private List<Booking> bookings;
-	
-	@ManyToMany(fetch=FetchType.EAGER)
-    @JoinTable(name="PROPERTY_AMENITIES",
-            joinColumns=
-            @JoinColumn(name="PROPERTY_ID", referencedColumnName="ID"),
-      inverseJoinColumns=
-            @JoinColumn(name="AMENITIE_ID", referencedColumnName="ID")
-    )
-	private List<Amenitie> amenities; 
+	}	
 }

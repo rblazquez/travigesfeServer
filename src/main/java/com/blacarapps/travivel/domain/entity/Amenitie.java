@@ -12,17 +12,25 @@ import lombok.Data;
 @Entity
 @Data
 public class Amenitie implements Serializable {
-	
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
-	
-	private String name;
-	private String description;
-	
-	public Amenitie() {}
-	
+
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	protected Long id;
+
+	protected String name;
+	protected String description;
+
+	public Amenitie() {
+	}
+
 	public Amenitie(String name) {
 		this.name = name;
+	}
+
+	public Amenitie(Long id, String name, String description) {
+		super();
+		this.id = id;
+		this.name = name;
+		this.description = description;
 	}
 }

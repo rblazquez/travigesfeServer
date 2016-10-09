@@ -9,6 +9,7 @@ import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Lob;
 
 import lombok.Data;
 
@@ -21,6 +22,7 @@ public class BookingEvent implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     
+    @Lob
     private Booking booking;
 	
 	@Enumerated(EnumType.STRING)

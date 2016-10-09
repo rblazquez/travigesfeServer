@@ -31,35 +31,35 @@ import com.blacarapps.travivel.domain.BOOKING_STATUS;
 public class Booking implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
+    protected Long id;
 	
 	@Column(unique=true)
-	private String code;
+	protected String code;
 
-	private Date startDate;
-	private Date endDate;
-	@Min(0)	private Integer guestNo;
-	private BigDecimal pricePerNight;
-	private BigDecimal cleaningFee;
-	private BigDecimal deposit;
+	protected Date startDate;
+	protected Date endDate;
+	@Min(0)	protected Integer guestNo;
+	protected BigDecimal pricePerNight;
+	protected BigDecimal cleaningFee;
+	protected BigDecimal deposit;
 	
 	@Enumerated(EnumType.STRING)
-	private BOOKING_STATUS status;
+	protected BOOKING_STATUS status;
 	
-	private String specialRequests;
-	private String notes;
+	protected String specialRequests;
+	protected String notes;
     
 	@ManyToOne(cascade={CascadeType.MERGE}, fetch=FetchType.EAGER)
 	@JoinColumn(name = "PROPERTY_ID", referencedColumnName = "id")
-	private Property property;
+	protected Property property;
 	
 	@OneToMany(mappedBy="booking",targetEntity=BookingEvent.class,
 		       fetch=FetchType.EAGER)
-	private List<BookingEvent> bookingEvents;
+	protected List<BookingEvent> bookingEvents;
 	
 	@ManyToOne(cascade={CascadeType.ALL}, fetch=FetchType.EAGER)
 	@JoinColumn(name = "GUEST_ID", referencedColumnName = "id")
-	private Guest guest;
+	protected Guest guest;
 	
 	public Booking(String code, Date startDate, Date endDate, Integer guestNo,
 			BigDecimal pricePerNight, BigDecimal cleaningFee,
