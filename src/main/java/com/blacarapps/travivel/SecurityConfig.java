@@ -20,6 +20,7 @@ public class SecurityConfig extends Auth0SecurityConfig {
 		http.authorizeRequests()
 			.antMatchers("/health").permitAll()
 			.antMatchers("/info").permitAll()
+			.antMatchers("/metrics").permitAll()
 			.antMatchers("/**").authenticated();
 	}
 }
